@@ -49,7 +49,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1cba09f7cf4e82f4b8e50c9aa54e1908, type: 3}
     mixer: 0
     loop: 1
-    volume: 0.5
+    volume: 0.8
     pitch: 1
     source: {fileID: 0}
   - name: GunReload
@@ -63,21 +63,21 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e2110562752525e439ca2e75470401e0, type: 3}
     mixer: 1
     loop: 0
-    volume: 0.4
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
   - name: Grunt2
     clip: {fileID: 8300000, guid: d33a62d72ebc0f24994a0d7a09a5c0b8, type: 3}
     mixer: 1
     loop: 0
-    volume: 1
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
   - name: Basement
     clip: {fileID: 8300000, guid: cd09b2fff1f97b74a8f6fbd48b46a921, type: 3}
     mixer: 0
     loop: 1
-    volume: 0.5
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: FlashLight

@@ -25,6 +25,7 @@ public class MainMenu : MonoBehaviour
         _disclaimer.alpha = 0;
         HideTutorial();
         HideCredits();
+        AudioManager.Play("Inzil");
     }
 
     private void Update()
@@ -39,6 +40,7 @@ public class MainMenu : MonoBehaviour
     {
         _fader.blocksRaycasts = true;
         _fader.interactable = true;
+        AudioManager.Stop("Inzil", 10f);
 
         DOTween.Sequence()
         .Append(_fader.DOFade(1, 1f))

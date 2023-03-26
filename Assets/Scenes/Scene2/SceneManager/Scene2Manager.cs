@@ -17,6 +17,7 @@ public class Scene2Manager : Scene1Manager
 
     [Header("Scene 2")]
     [SerializeField] GameObject _inzilPrefab;
+    [SerializeField] GameObject _yamshiPrefab;
     [SerializeField] Transform _inzilRoot;
     [SerializeField] GameObject _victim;
     [SerializeField] Animator _victimAnimator;
@@ -27,8 +28,10 @@ public class Scene2Manager : Scene1Manager
     private Vector3 _mousePosition;
     private bool _enableFlashLight = false;
     Sequence _ShootSeq = null;
+    private bool _canShoot = false;
+    private bool _hasFired = false;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
         Singleton = this;
         _gunFire.SetActive(false);
@@ -116,20 +119,21 @@ public class Scene2Manager : Scene1Manager
             if (MouseOverPeople != null)
                 MouseOverPeople.GoBackHome();
 
-
             if (lineIndex == -1)
             {
                 SetPhase(Phase.Phase2);
             }
             else
             {
+                if (lineIndex == 8 && EverybodyIsHome())
+                    SetPhase(Phase.Phase2);
+
                 if ( lineIndex < 10)
-                    DisplayInzil();
+                    DisplayInzil(_yamshiPrefab);
                 if (lineIndex == 11)
                 {
-                    DisplayInzil();
+                    DisplayInzil(_yamshiPrefab);
                     RemoveExtraPeople();
-                    AudioManager.Stop("Crowd", 3);
                 }
             }
         }
@@ -140,9 +144,22 @@ public class Scene2Manager : Scene1Manager
         }
     }
 
-    private void DisplayInzil()
+    private bool EverybodyIsHome()
     {
-        GameObject go = Instantiate(_inzilPrefab, _inzilRoot);
+        bool result = true;
+
+        foreach (var people in _peoples)
+        {
+            if (!people.isHome)
+                return false;
+        }
+
+        return result;
+    }
+
+    private void DisplayInzil(GameObject prefab)
+    {
+        GameObject go = Instantiate(prefab, _inzilRoot);
         go.transform.position = Input.mousePosition;
 
         CanvasGroup cg = go.GetComponent<CanvasGroup>();
@@ -171,6 +188,7 @@ public class Scene2Manager : Scene1Manager
 
     protected override void LoadPhase2()
     {
+        AudioManager.Stop("Crowd", 3);
         (Color, string)[] lines = new (Color, string)[]
         {
             (DialoguesManager.AlanColor, "Alan: Ils veulent qu’on finisse de construire le commissariat, non ?"),
@@ -185,10 +203,10 @@ public class Scene2Manager : Scene1Manager
         if (Input.GetMouseButtonDown(0))
         {
             var lineIndex = DialoguesManager.ReadNextDialogueSequence();
-            if (lineIndex == 3)
-            {
-                _victim.SetActive(true);
-            }
+            //if (lineIndex == 3)
+            //{
+            //    _victim.SetActive(true);
+            //}
             if (lineIndex == -1)
             {
                 SetPhase(Phase.Phase3);
@@ -206,7 +224,8 @@ public class Scene2Manager : Scene1Manager
 
     protected override void LoadPhase3()
     {
-
+        _globalLight.intensity = 0.8f;
+        _victim.SetActive(true);
         (Color, string)[] lines = new (Color, string)[]
         {
             (DialoguesManager.AlanColor, "Alan: Eh!"),
@@ -218,7 +237,7 @@ public class Scene2Manager : Scene1Manager
 
     protected override void HandlePhase3()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !_hasFired)
         {
             var lineIndex = DialoguesManager.ReadNextDialogueSequence();
             if (lineIndex == 2)
@@ -226,12 +245,17 @@ public class Scene2Manager : Scene1Manager
                 DisplaySilhouette(1);
                 _tuto.Display(0f, "Parler", "Tirer");
                 AudioManager.Play("Chase");
+                _canShoot = true;
             }
 
             if (lineIndex == -1)
             {
                 SetPhase(Phase.Phase4);
             }
+        }
+        if (_canShoot && Input.GetMouseButtonDown(1))
+        {
+            GunFire();
         }
     }
 
@@ -258,7 +282,7 @@ public class Scene2Manager : Scene1Manager
 
     protected override void HandlePhase4()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !_hasFired)
         {
             var lineIndex = DialoguesManager.ReadNextDialogueSequence();
             if (lineIndex == -1)
@@ -274,11 +298,12 @@ public class Scene2Manager : Scene1Manager
 
     protected void GunFire()
     {
+        _hasFired = true;
         _timer.SetActive(false);
         _fader.alpha = 1;
         _gunFire.SetActive(true);
         AudioManager.Play("GunShot");
-        AudioManager.Stop("Chase");
+        AudioManager.Stop("Chase",.1f);
         DOTween.Sequence()
             .AppendInterval(4f)
             .AppendCallback(()=> LoadScene3());

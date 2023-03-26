@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 using UnityEngine.Rendering.Universal;
 
 public class Scene1Manager : MonoBehaviour
@@ -15,6 +16,8 @@ public class Scene1Manager : MonoBehaviour
     [SerializeField] protected Light2D _globalLight;
     [SerializeField] protected Camera _camera;
     [SerializeField] protected GameObject[] _silhouettes;
+    [SerializeField] private Animator _weaponAnimator;
+    [SerializeField] private CanvasGroup _timeStamp;
 
     Sequence _hitTween = null;
     int _lineIndex = -1;
@@ -27,6 +30,12 @@ public class Scene1Manager : MonoBehaviour
         Phase3,
         Phase4,
         Phase5,
+    }
+
+    protected virtual void Awake()
+    {
+        _weaponAnimator.gameObject.SetActive(false);
+        _timeStamp.alpha = 0;
     }
 
     protected virtual void Start()
@@ -110,6 +119,10 @@ public class Scene1Manager : MonoBehaviour
             (DialoguesManager.AlanColor, "Alan: INZIL!"),
         };
         DialoguesManager.StartNewDialogueSequence(lines);
+        DOTween.Sequence()
+            .AppendInterval(1f)
+            .Append(_timeStamp.DOFade(1, 3f))
+            .Append(_timeStamp.DOFade(0, 2f));
     }
 
     protected virtual void HandlePhase1()
@@ -117,6 +130,7 @@ public class Scene1Manager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             var lineIndex = DialoguesManager.ReadNextDialogueSequence();
+
             if (lineIndex == 8)
             {
                 AudioManager.Play("GunReload");
@@ -125,6 +139,7 @@ public class Scene1Manager : MonoBehaviour
             {
                 AudioManager.Stop("Basement", 0.5f);
                 AudioManager.Play("Inzil");
+
             }
             if (lineIndex == -1)
             {
@@ -141,8 +156,11 @@ public class Scene1Manager : MonoBehaviour
         DisplaySilhouette(1); // Rami
         _tuto.Display(2f, "Parler", "Frapper");
 
+        _weaponAnimator.gameObject.SetActive(true);
+        _weaponAnimator.Play("rotate_up", 0);
+
         StartCoroutine(LightFade(1, 0, 1));
-        _camera.DOColor(Color.white, .7f);
+        _camera.DOColor(new Color(.17f, .2f, .26f, 1), .7f);
 
         (Color, string)[] lines = new (Color, string)[]
         {
@@ -165,7 +183,10 @@ public class Scene1Manager : MonoBehaviour
 
         }
         if (Input.GetMouseButtonDown(1))
+        {
             Hit(_silhouettes[1].transform);
+            _weaponAnimator.SetTrigger("isKicking");
+        }
     }
 
     protected IEnumerator LightFade(float duration, float from, float to)
@@ -209,7 +230,10 @@ public class Scene1Manager : MonoBehaviour
             }
         }
         if (Input.GetMouseButtonDown(1))
+        {
             Hit(_silhouettes[1].transform);
+            _weaponAnimator.SetTrigger("isKicking");
+        }
     }
 
     protected virtual void Hit(Transform t)
@@ -269,6 +293,7 @@ public class Scene1Manager : MonoBehaviour
     protected virtual void LoadPhase5()
     {
         DisplaySilhouette(3); // rami se releve
+        _weaponAnimator.Play("rotate_down", 0);
 
         _tuto.Display(2f, "Continuer", "");
 
@@ -288,10 +313,16 @@ public class Scene1Manager : MonoBehaviour
             (DialoguesManager.AlanColor, "Alan: Une meuf."),
             (DialoguesManager.EddyColor, "Eddy: A boire."),
             (DialoguesManager.GriffColor, "Grif: Canal+"),
-            (DialoguesManager.RamiColor, "Rami: ... J’espère que vous trouverez ça toujours aussi fun dans quelques mois ..."),
+            (DialoguesManager.RamiColor, "Rami: ... J’espère que vous trouverez ça toujours aussi marrant dans quelques mois ..."),
         };
 
         DialoguesManager.StartNewDialogueSequence(lines);
+
+        _timeStamp.GetComponent<TextMeshProUGUI>().text = "Irak 2003";
+        DOTween.Sequence()
+            .AppendInterval(1f)
+            .Append(_timeStamp.DOFade(1, 3f))
+            .Append(_timeStamp.DOFade(0, 2f));
     }
 
     protected virtual void HandlePhase5()
@@ -301,6 +332,7 @@ public class Scene1Manager : MonoBehaviour
             if (_lineIndex < 15)
             {
                 _lineIndex = DialoguesManager.ReadNextDialogueSequence();
+
                 if (_lineIndex == 11)
                 {
                     _fader.DOFade(1, 5);

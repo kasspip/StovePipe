@@ -803,6 +803,7 @@ MonoBehaviour:
   - {fileID: 1563036131}
   - {fileID: 164340204}
   _torchLight: {fileID: 127817531}
+  _sodaPS: {fileID: 1354304084}
 --- !u!4 &1277018141
 Transform:
   m_ObjectHideFlags: 0
@@ -830,7 +831,7 @@ GameObject:
   - component: {fileID: 1354304086}
   - component: {fileID: 1354304085}
   m_Layer: 0
-  m_Name: pepsi PS
+  m_Name: soda PS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -857,7 +858,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: ef8a7d2907b179b478b05a6896ad69dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -917,13 +918,13 @@ ParticleSystem:
   m_GameObject: {fileID: 1354304084}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 2
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -991,7 +992,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 2.14
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1537,7 +1538,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 25
+    angle: 14.9
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -1623,7 +1624,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -1680,7 +1681,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 360
+      value: 90
       mode: 0
       spread: 0
       speed:
@@ -1848,7 +1849,7 @@ ParticleSystem:
     m_BurstCount: 0
     m_Bursts: []
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -5622,14 +5623,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1354304084}
-  m_LocalRotation: {x: 0.6840012, y: -0.14489403, z: 0.14597961, w: 0.69988424}
-  m_LocalPosition: {x: 0.94, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.639439, z: 0, w: -0.7688419}
+  m_LocalPosition: {x: 2.36, y: -1.7, z: 0}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 88.71, y: -7.96, z: 15.78}
+  m_LocalEulerAnglesHint: {x: 0, y: 439.5, z: 0}
 --- !u!1 &1563036131
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,8 +8,14 @@ using UnityEngine.SceneManagement;
 public class Scene3Manager : Scene1Manager
 {
     [SerializeField] Transform _torchLight;
+    [SerializeField] GameObject _sodaPS;
 
     private Vector3 _mousePosition;
+
+    protected override void Awake()
+    {
+        _sodaPS.gameObject.SetActive(false);
+    }
 
     protected override void Start()
     {
@@ -99,7 +105,9 @@ public class Scene3Manager : Scene1Manager
     protected override void LoadPhase3()
     {
         DisplaySilhouette(1);
-
+        _sodaPS.gameObject.SetActive(true);
+        //AudioManager.Play("Fizz");
+        AudioManager.Stop("Fizz", 4f);
         _tuto.Display(2f, "Parler", "");
         (Color, string)[] lines = new (Color, string)[]
         {

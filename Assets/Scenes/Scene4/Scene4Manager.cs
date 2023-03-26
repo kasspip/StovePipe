@@ -16,6 +16,10 @@ public class Scene4Manager : Scene1Manager
 
     private Vector3 _mousePosition;
 
+    protected override void Awake()
+    {
+    }
+
     protected override void Start()
     {
         _end.gameObject.SetActive(false);
@@ -35,8 +39,6 @@ public class Scene4Manager : Scene1Manager
     {
         UpdatePhase();
     }
-
-
 
     #region Phase 1
 
