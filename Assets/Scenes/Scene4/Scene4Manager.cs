@@ -42,7 +42,7 @@ public class Scene4Manager : Scene1Manager
 
     protected override void LoadPhase1()
     {
-        _tuto.Display(2f, "Coca", "Pepsi");
+        _tuto.Display(2f, "Pepsi", "Coca");
         (Color, string)[] lines = new (Color, string)[]
         {
             (DialoguesManager.EddyColor, "Eddy: T’es plutôt Coca ou Pepsi ?"),
@@ -102,7 +102,7 @@ public class Scene4Manager : Scene1Manager
         _isTheEnd = true;
         DOTween.Sequence()
             .AppendInterval(4f)
-            .AppendCallback(() => _tuto.Display(2f, "Quit", ""));
+            .AppendCallback(() => _tuto.Display(2f, "Quitter", ""));
     }
 
     #endregion

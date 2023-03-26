@@ -15,7 +15,9 @@ public class Scene2Manager : Scene1Manager
     [SerializeField] float _globalLightValue = 0.03f;
     [SerializeField] People[] _peoples;
 
-    [Header("Accident")]
+    [Header("Scene 2")]
+    [SerializeField] GameObject _inzilPrefab;
+    [SerializeField] Transform _inzilRoot;
     [SerializeField] GameObject _victim;
     [SerializeField] Animator _victimAnimator;
     [SerializeField] GameObject _gunFire;
@@ -24,6 +26,7 @@ public class Scene2Manager : Scene1Manager
 
     private Vector3 _mousePosition;
     private bool _enableFlashLight = false;
+    Sequence _ShootSeq = null;
 
     protected virtual void Awake()
     {
@@ -60,6 +63,7 @@ public class Scene2Manager : Scene1Manager
         _torchLight.gameObject.SetActive(true);
         _enableFlashLight = true;
         AudioManager.Play("FlashLight");
+        AudioManager.Play("Crowd");
     }
 
     private void DisableFlashLight()
@@ -99,6 +103,7 @@ public class Scene2Manager : Scene1Manager
             (DialoguesManager.GriffColor, "Grif: On s’en fout. Faut qu’ils dégagent."),
             (DialoguesManager.AlanColor, "Alan: Dis-lui de se calmer..."),
             (DialoguesManager.EddyColor, "Eddy: Grif, calme-toi !"),
+            (DialoguesManager.AlanColor, "Alan: Imshi! [Partez !]"),
         };
         DialoguesManager.StartNewDialogueSequence(lines);
     }
@@ -111,26 +116,52 @@ public class Scene2Manager : Scene1Manager
             if (MouseOverPeople != null)
                 MouseOverPeople.GoBackHome();
 
-            if (lineIndex > 3)
-                CheckRemoveExtraPeople();
 
             if (lineIndex == -1)
             {
                 SetPhase(Phase.Phase2);
             }
+            else
+            {
+                if ( lineIndex < 10)
+                    DisplayInzil();
+                if (lineIndex == 11)
+                {
+                    DisplayInzil();
+                    RemoveExtraPeople();
+                    AudioManager.Stop("Crowd", 3);
+                }
+            }
         }
         if (Input.GetMouseButtonDown(1))
+        {
             Hit(MouseOverPeople.transform);
+            _silhouettes[0].GetComponent<Animator>().SetTrigger("isKicking");
+        }
     }
 
-    private void CheckRemoveExtraPeople()
+    private void DisplayInzil()
+    {
+        GameObject go = Instantiate(_inzilPrefab, _inzilRoot);
+        go.transform.position = Input.mousePosition;
+
+        CanvasGroup cg = go.GetComponent<CanvasGroup>();
+        cg.alpha = 0;
+        DOTween.Sequence()
+            .Append(cg.DOFade(1, .3f))
+            .Append(cg.DOFade(0, .5f))
+            .AppendInterval(1f)
+            .AppendCallback(()=>Destroy(go));
+
+    }
+
+    private void RemoveExtraPeople()
     {
         foreach (var people in _peoples)
         {
             if (!people.isHome)
             {
                 people.GoBackHome();
-                return;
             }
         }
     }
@@ -194,6 +225,7 @@ public class Scene2Manager : Scene1Manager
             {
                 DisplaySilhouette(1);
                 _tuto.Display(0f, "Parler", "Tirer");
+                AudioManager.Play("Chase");
             }
 
             if (lineIndex == -1)
@@ -219,8 +251,8 @@ public class Scene2Manager : Scene1Manager
             (DialoguesManager.AlanColor, "Alan: Attention !"),
         };
         DialoguesManager.StartNewDialogueSequence(lines);
-        DOTween.Sequence()
-            .AppendInterval(4)
+        _ShootSeq =  DOTween.Sequence()
+            .AppendInterval(5)
             .AppendCallback(()=>GunFire());
     }
 
@@ -235,6 +267,7 @@ public class Scene2Manager : Scene1Manager
         }
         if (Input.GetMouseButtonDown(1))
         {
+            _ShootSeq.Kill();
             GunFire();
         }
     }
@@ -244,6 +277,8 @@ public class Scene2Manager : Scene1Manager
         _timer.SetActive(false);
         _fader.alpha = 1;
         _gunFire.SetActive(true);
+        AudioManager.Play("GunShot");
+        AudioManager.Stop("Chase");
         DOTween.Sequence()
             .AppendInterval(4f)
             .AppendCallback(()=> LoadScene3());

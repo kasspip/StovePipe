@@ -186,7 +186,6 @@ public class Scene1Manager : MonoBehaviour
 
     protected virtual void LoadPhase3()
     {
-        DisplaySilhouette(2); // Rami genou 
 
 
         (Color, string)[] lines = new (Color, string)[]
@@ -210,7 +209,7 @@ public class Scene1Manager : MonoBehaviour
             }
         }
         if (Input.GetMouseButtonDown(1))
-            Hit(_silhouettes[2].transform);
+            Hit(_silhouettes[1].transform);
     }
 
     protected virtual void Hit(Transform t)
@@ -235,6 +234,8 @@ public class Scene1Manager : MonoBehaviour
 
     protected virtual void LoadPhase4()
     {
+        DisplaySilhouette(2); // Rami genou 
+
         _tuto.Display(2f, "Continuer", "");
         AudioManager.Stop("Inzil", 2f);
 
@@ -300,9 +301,9 @@ public class Scene1Manager : MonoBehaviour
             if (_lineIndex < 15)
             {
                 _lineIndex = DialoguesManager.ReadNextDialogueSequence();
-                if (_lineIndex == 10)
+                if (_lineIndex == 11)
                 {
-                    _fader.DOFade(1, 10);
+                    _fader.DOFade(1, 5);
                 }
             }
             else
@@ -317,7 +318,7 @@ public class Scene1Manager : MonoBehaviour
     private IEnumerator NextScene()
     {
         DialoguesManager.ReadNextDialogueSequence();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
         SceneManager.LoadScene("Scene2");
     }
 }

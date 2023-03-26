@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audios:
   - name: Inzil
-    clip: {fileID: 8300000, guid: 19572f6389f3fc347b1b81b1b63f8bd6, type: 3}
+    clip: {fileID: 8300000, guid: 1cba09f7cf4e82f4b8e50c9aa54e1908, type: 3}
     mixer: 0
     loop: 1
     volume: 0.5
@@ -88,10 +88,31 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: Fizz
-    clip: {fileID: 8300000, guid: 6bd60b925cf8bb541bdc91402403498f, type: 3}
+    clip: {fileID: 8300000, guid: d12db934f3017144f9e79e3798351862, type: 3}
     mixer: 1
     loop: 0
     volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Chase
+    clip: {fileID: 8300000, guid: e2f99cd135758f34e804ce59a9e6f0c1, type: 3}
+    mixer: 0
+    loop: 0
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: GunShot
+    clip: {fileID: 8300000, guid: a41080a8ebfef4740baedb7e105490e7, type: 3}
+    mixer: 0
+    loop: 0
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: Crowd
+    clip: {fileID: 8300000, guid: 7a3ee0f041bbeab47bea95f863be4507, type: 3}
+    mixer: 0
+    loop: 1
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
   _musicMixer: {fileID: -2527953018545951346, guid: d3865c9dda64ad84aaa8fb1faf74c699, type: 2}

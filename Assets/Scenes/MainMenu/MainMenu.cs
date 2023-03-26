@@ -17,10 +17,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject _tutorialPanel;
     [SerializeField] GameObject _creditPanel;
     [SerializeField] CanvasGroup _fader;
+    [SerializeField] CanvasGroup _disclaimer;
 
     protected void Start()
     {
         _fader.alpha = 0;
+        _disclaimer.alpha = 0;
         HideTutorial();
         HideCredits();
     }
@@ -38,9 +40,12 @@ public class MainMenu : MonoBehaviour
         _fader.blocksRaycasts = true;
         _fader.interactable = true;
 
-        var seq = DOTween.Sequence();
-        seq.Append(_fader.DOFade(1, 1f));
-        seq.AppendCallback(() => SceneManager.LoadScene("Scene1"));
+        DOTween.Sequence()
+        .Append(_fader.DOFade(1, 1f))
+        .Append(_disclaimer.DOFade(1, .5f))
+        .AppendInterval(10f)
+        .Append(_disclaimer.DOFade(0, .5f))
+        .AppendCallback(() => SceneManager.LoadScene("Scene1"));
     }
 
     #endregion
