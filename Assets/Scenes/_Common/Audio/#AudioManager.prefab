@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1923904310767029912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6657154048265143219}
+  - component: {fileID: 8607193508228353244}
+  m_Layer: 0
+  m_Name: '#AudioManager'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6657154048265143219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923904310767029912}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 959.99615, y: 297.63864, z: -19.817505}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8607193508228353244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923904310767029912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac2dc3748434ba340acff532509f7465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audios:
+  - name: Inzil
+    clip: {fileID: 8300000, guid: 19572f6389f3fc347b1b81b1b63f8bd6, type: 3}
+    mixer: 0
+    loop: 1
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: GunReload
+    clip: {fileID: 8300000, guid: efa0ff6e39fc3a043992489fce073e26, type: 3}
+    mixer: 1
+    loop: 0
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: Grunt1
+    clip: {fileID: 8300000, guid: e2110562752525e439ca2e75470401e0, type: 3}
+    mixer: 1
+    loop: 0
+    volume: 0.4
+    pitch: 1
+    source: {fileID: 0}
+  - name: Grunt2
+    clip: {fileID: 8300000, guid: d33a62d72ebc0f24994a0d7a09a5c0b8, type: 3}
+    mixer: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Basement
+    clip: {fileID: 8300000, guid: cd09b2fff1f97b74a8f6fbd48b46a921, type: 3}
+    mixer: 0
+    loop: 1
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: FlashLight
+    clip: {fileID: 8300000, guid: 6bd60b925cf8bb541bdc91402403498f, type: 3}
+    mixer: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Fizz
+    clip: {fileID: 8300000, guid: 6bd60b925cf8bb541bdc91402403498f, type: 3}
+    mixer: 1
+    loop: 0
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  _musicMixer: {fileID: -2527953018545951346, guid: d3865c9dda64ad84aaa8fb1faf74c699, type: 2}
+  _FxMixer: {fileID: 1382616506405501726, guid: d3865c9dda64ad84aaa8fb1faf74c699, type: 2}
