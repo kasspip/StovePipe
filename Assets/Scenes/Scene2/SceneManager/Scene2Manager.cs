@@ -189,6 +189,8 @@ public class Scene2Manager : Scene1Manager
     protected override void LoadPhase2()
     {
         AudioManager.Stop("Crowd", 3);
+        AudioManager.Play("Basement");
+
         (Color, string)[] lines = new (Color, string)[]
         {
             (DialoguesManager.AlanColor, "Alan: Ils veulent qu’on finisse de construire le commissariat, non ?"),
@@ -244,6 +246,7 @@ public class Scene2Manager : Scene1Manager
             {
                 DisplaySilhouette(1);
                 _tuto.Display(0f, "Parler", "Tirer");
+                AudioManager.Stop("Basement");
                 AudioManager.Play("Chase");
                 _canShoot = true;
             }

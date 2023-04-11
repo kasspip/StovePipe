@@ -262,6 +262,8 @@ public class Scene1Manager : MonoBehaviour
 
         _tuto.Display(2f, "Continuer", "");
         AudioManager.Stop("Inzil", 2f);
+        AudioManager.Play("Basement");
+
 
         (Color, string)[] lines = new (Color, string)[]
         {
@@ -350,7 +352,9 @@ public class Scene1Manager : MonoBehaviour
     private IEnumerator NextScene()
     {
         DialoguesManager.ReadNextDialogueSequence();
-        yield return new WaitForSeconds(5);
+        AudioManager.Stop("Basement", 3f);
+
+        yield return new WaitForSeconds(2);
         SceneManager.LoadScene("Scene2");
     }
 }

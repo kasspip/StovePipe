@@ -55,6 +55,7 @@ public class AudioManager : MonoBehaviour
         {
             if (audio.name == clipName)
             {
+                audio.source.volume = audio.volume;
                 audio.source.Play();
                 return;
             }

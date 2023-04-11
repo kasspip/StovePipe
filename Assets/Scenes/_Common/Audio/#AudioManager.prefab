@@ -97,7 +97,7 @@ MonoBehaviour:
   - name: Chase
     clip: {fileID: 8300000, guid: e2f99cd135758f34e804ce59a9e6f0c1, type: 3}
     mixer: 0
-    loop: 0
+    loop: 1
     volume: 0.5
     pitch: 1
     source: {fileID: 0}
